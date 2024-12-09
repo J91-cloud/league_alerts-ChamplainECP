@@ -1,0 +1,46 @@
+@startuml
+
+package "presentation layer"{
+
+    class AuthController{
+        - userService : UserService
+        + createUser() : ResponseEntity<UserRequestModel>
+        + getUserInfo() : ResponseEntity<UserInfoDTO>
+
+
+    }
+
+    class UserRequestModel {
+        - email : String
+        - firstName : String
+        - lastName : String
+        - password : String
+        - connection : String
+    }
+    class UserResponseModel {
+        - email : String
+        - firstName : String
+        - lastName : String
+        - password : String
+        - connection : String
+    }
+
+}
+
+package "business layer"{
+    interface UserService{
+        + createUser(userRequestModel: UserRequestModel)
+        + getManageMentAPI() : String
+        
+    }
+    class UserServiceImpl{
+        - userService : UserService
+        + createUser(userRequestModel: UserRequestModel) : UserResponseModel
+        + getManageMentAPI() : String
+    }
+}
+
+UserServiceImpl -down-|> UserService : implements
+AuthController -up->  UserService : uses
+
+@enduml

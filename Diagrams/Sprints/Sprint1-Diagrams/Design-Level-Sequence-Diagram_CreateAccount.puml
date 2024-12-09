@@ -1,0 +1,62 @@
+@startuml
+
+title Reader Creates an Account (With DTOs as Participants)
+
+actor Reader
+
+participant ReactApplication as "<<View>>\nReactApplication"
+participant LandingPage as "<<View>>\nLandingPage"
+participant CreateAccountPage as "<<View>>\nCreateAccountPage"
+participant AuthController as "<<Controller>>\nAuthController"
+participant UserService as "<<Service>>\nUserService"
+participant Auth0 as "<<External Service>>\nAuth0"
+participant UserRequestDTO as "<<DTO>>\nUserRequestDTO"
+participant UserResponseDTO as "<<DTO>>\nUserResponseDTO"
+
+Reader -> ReactApplication : Access website
+activate ReactApplication
+
+ReactApplication -> LandingPage : render()
+activate LandingPage
+deactivate ReactApplication
+
+Reader -> LandingPage : Click "Create Account"
+LandingPage -> CreateAccountPage : navigate()
+activate CreateAccountPage
+deactivate LandingPage
+
+Reader -> CreateAccountPage : Fill out account details
+CreateAccountPage -> UserRequestDTO : Create UserRequestDTO\n(email, password)
+activate UserRequestDTO
+deactivate UserRequestDTO
+
+CreateAccountPage -> ReactApplication : submit(UserRequestDTO)
+ReactApplication -> AuthController : POST /createAccount\n(UserRequestDTO)
+activate AuthController
+
+AuthController -> UserRequestDTO : Validate data
+AuthController -> UserService : Pass UserRequestDTO
+activate UserService
+
+UserService -> Auth0 : validateEmail(UserRequestDTO.email)
+Auth0 -> UserService : Email valid
+UserService -> Auth0 : validatePassword(UserRequestDTO.password)
+Auth0 -> UserService : Password valid
+
+UserService -> Auth0 : createUser(UserRequestDTO.email, UserRequestDTO.password)
+Auth0 -> UserService : Success, user token returned
+
+UserService -> UserResponseDTO : Create UserResponseDTO\n(email, token)
+activate UserResponseDTO
+deactivate UserService
+
+AuthController -> UserResponseDTO : Pass UserResponseDTO
+deactivate AuthController
+
+ReactApplication -> UserResponseDTO : Receive UserResponseDTO
+ReactApplication -> CreateAccountPage : Display success message\n"Account Created!"
+CreateAccountPage -> Reader : Show confirmation message
+deactivate CreateAccountPage
+deactivate ReactApplication
+
+@enduml

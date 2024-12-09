@@ -1,0 +1,31 @@
+@startuml
+[*] --> InitialState : User navigates to create account page
+
+state InitialState {
+  [*] --> InputDetails
+}
+
+state InputDetails {
+  [*] --> EmailValidation : User provides email
+  EmailValidation --> EmailInvalid : Invalid email detected
+  EmailInvalid --> EmailValidation : User corrects email
+  EmailValidation --> PasswordValidation : Email is valid
+}
+
+state PasswordValidation {
+  [*] --> CheckComplexity : User enters password
+  CheckComplexity --> PasswordInvalid : Password does not meet complexity
+  PasswordInvalid --> CheckComplexity : User re-enters password
+  CheckComplexity --> CompleteValidation : Password is valid
+}
+
+state CompleteValidation {
+  [*] --> GenerateUsername : System generates username based on token
+  GenerateUsername --> InvalidUsername : Username contains special characters
+  InvalidUsername --> GenerateUsername : Regenerate username
+  GenerateUsername --> AccountCreationSuccess : Username is valid
+}
+
+AccountCreationSuccess --> [*] : Account created successfully
+
+@enduml

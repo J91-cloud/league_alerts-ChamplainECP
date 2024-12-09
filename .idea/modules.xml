@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/computer_alerts-ChamplainProject.iml" filepath="$PROJECT_DIR$/.idea/computer_alerts-ChamplainProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/computer_alerts-be.main.iml" filepath="$PROJECT_DIR$/.idea/modules/computer_alerts-be.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/computer_alerts-be.test.iml" filepath="$PROJECT_DIR$/.idea/modules/computer_alerts-be.test.iml" />
     </modules>
   </component>
 </project>

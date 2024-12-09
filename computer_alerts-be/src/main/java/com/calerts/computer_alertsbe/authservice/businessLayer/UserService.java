@@ -36,14 +36,14 @@ public class UserService {
 
             MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
             map.add("grant_type", "client_credentials");
-            map.add("client_id", CLIENT_ID); // Use the injected clientId
-            map.add("client_secret", CLIENT_SECRET); // Use the injected clientSecret
-            map.add("audience", AUDIENCE); // Use the injected audience
+            map.add("client_id", CLIENT_ID);
+            map.add("client_secret", CLIENT_SECRET);
+            map.add("audience", AUDIENCE);
 
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
             ResponseEntity<Map> response = restTemplate.postForEntity(
-                    "https://" + AUTH0_DOMAIN + "/oauth/token", // Use the injected domain
+                    "https://" + AUTH0_DOMAIN + "/oauth/token",
                     request,
                     Map.class
             );
@@ -55,9 +55,9 @@ public class UserService {
         }
     }
 
-    // Create User
+
     public UserResponseModel createUser(UserRequestDTO request) {
-        String url = "https://" + AUTH0_DOMAIN + "/api/v2/users"; // Use the injected domain
+        String url = "https://" + AUTH0_DOMAIN + "/api/v2/users";
 
         String managementApiToken = getManagementApiToken();
         if (managementApiToken == null || managementApiToken.isEmpty()) {
@@ -67,9 +67,8 @@ public class UserService {
         // Add headers with Management API token
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + managementApiToken); // Add the Management API token to the header
+        headers.set("Authorization", "Bearer " + managementApiToken);
 
-        // Construct request body according to Auth0 API specifications
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("email", request.getEmail());
         requestBody.put("password", request.getPassword());

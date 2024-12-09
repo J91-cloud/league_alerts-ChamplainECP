@@ -33,11 +33,22 @@ const ArticleDetails: React.FC = () => {
   return article ? (
     <div>
       <h1>{article.title}</h1>
-      <p><strong>Body:</strong> {article.body}</p>
-      <p><strong>Tags:</strong> {article.tags}</p>
-      <p><strong>Status:</strong> {article.articleStatus}</p>
-      <p><strong>Word Count:</strong> {article.wordCount}</p>
-      <p><strong>Time Posted:</strong> {new Date(article.timePosted).toLocaleString()}</p>
+      <p>
+        <strong>Body:</strong> {article.body}
+      </p>
+      <p>
+        <strong>Tags:</strong> {article.tags}
+      </p>
+      <p>
+        <strong>Status:</strong> {article.articleStatus}
+      </p>
+      <p>
+        <strong>Word Count:</strong> {article.wordCount}
+      </p>
+      <p>
+        <strong>Time Posted:</strong>{" "}
+        {new Date(article.timePosted).toLocaleString()}
+      </p>
     </div>
   ) : (
     <p>No article found.</p>

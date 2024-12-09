@@ -15,9 +15,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "./src",  // This tells TypeScript where to look for the source files
+    "baseUrl": "./src", // This tells TypeScript where to look for the source files
     "paths": {
-      "@/*": ["src/*"]  // This creates the alias for the 'src' folder
+      "@/*": ["src/*"] // This creates the alias for the 'src' folder
     }
   },
   "include": ["src", "playwright.config.ts"]

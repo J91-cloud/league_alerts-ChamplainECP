@@ -36,6 +36,7 @@ public class SecurityConfig {
                         // Completely public endpoints
                         .pathMatchers(HttpMethod.GET, "/api/v1/readers/**").permitAll()
                         .pathMatchers(HttpMethod.GET, "/api/v1/articles/**").permitAll()
+                        .pathMatchers(HttpMethod.GET, "/api/v1/authors/**").permitAll()
 
                         // Endpoints requiring authentication
                         .pathMatchers(HttpMethod.POST, "/api/create/**").authenticated()

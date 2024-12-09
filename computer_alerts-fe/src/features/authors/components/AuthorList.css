@@ -1,0 +1,64 @@
+.author-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+.author-list > div {
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+#btn-1 {
+    background-color: #bcac40;
+    border: none;
+    color: black;
+    padding: 8px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    font-weight: bold;
+}
+  
+#btn-2 {
+    background-color: #ec925e;
+    border: none;
+    color: black;
+    padding: 8px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    font-weight: bold;
+}
+
+.bio-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+      
+.bio-row p {
+    margin: 0;
+}
+
+.separator {
+    border: none; /* Remove default border */
+    border-top: 1px solid #aaa; /* Add a solid line */
+    margin: 20px 0; /* Add spacing above and below the line */
+    width: 100%; /* Make it span the full width */
+    opacity: 0.6; /* Make it slightly transparent */
+}
+      
+.author-header {
+    display: flex; /* Arrange name and icon horizontally */
+    align-items: center; /* Vertically align the name and icon */
+    justify-content: space-between; /* Push items apart */
+}
+      
+.author-header i {
+    margin-left: auto;
+    font-size: 25px;
+    color: #555;
+    cursor: pointer;
+}

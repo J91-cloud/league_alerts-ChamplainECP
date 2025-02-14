@@ -11,8 +11,6 @@ import com.calerts.computer_alertsbe.articlesubdomain.presentationlayer.ArticleR
 import com.calerts.computer_alertsbe.utils.CloudinaryService.CloudinaryService;
 import com.calerts.computer_alertsbe.articlesubdomain.subscription.SubscriptionRepository;
 import com.calerts.computer_alertsbe.emailingsubdomain.EmailSenderService;
-//import com.calerts.computer_alertsbe.utils.CloudinaryService.CloudinaryService;
-//import com.calerts.computer_alertsbe.utils.CloudinaryService.CloudinaryService;
 import com.calerts.computer_alertsbe.utils.EntityModelUtil;
 import com.calerts.computer_alertsbe.utils.exceptions.BadRequestException;
 import com.calerts.computer_alertsbe.utils.exceptions.NotFoundException;
@@ -169,7 +167,7 @@ public class ArticleServiceImpl implements ArticleService {
                 .map(EntityModelUtil::toArticleResponseModel);
     }
 
-    private String buildEmailContent(Article article) {
+    private String buildEmailContent(Article article, String userEmail) {
         return String.format(
                 "<div style='font-family: Arial, sans-serif; line-height: 1.5; max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px; border-radius: 8px;'>"
                         + "<h1 style='color: #a4050a; text-align: center;'>New Article Published!</h1>"
@@ -182,20 +180,32 @@ public class ArticleServiceImpl implements ArticleService {
                         + "  | <a href='https://x.com/LeagueAlerts' style='color: #3067f2; text-decoration: none; margin-left: 10px;'>X</a>"
                         + "</div>"
                         + "<p style='margin-top: 20px; color: #555;'>Best regards,<br>LeagueAlerts Team</p>"
+                        // Unsubscribe link section:
+                        + "<hr style='margin-top: 20px; border: none; border-top: 1px solid #ccc;' />"
+                        + "<p style='font-size: 12px; color: #999; text-align: center;'>"
+                        + "If you wish to unsubscribe from <strong>%s</strong> notifications, please "
+                        + "<a href='https://league-alerts.web.app/unsubscribe?email=%s&category=%s' style='color: #a4050a; text-decoration: underline;'>click here</a>."
+                        + "</p>"
                         + "</div>",
                 article.getTitle(),
                 article.getCategory(),
-                "https://league-alerts.web.app/articles/" + article.getArticleIdentifier().getArticleId() // Replace with actual article link logic
+                "https://league-alerts.web.app/articles/" + article.getArticleIdentifier().getArticleId(),
+                article.getCategory(), // used for unsubscribe text
+                userEmail,             // subscriber email for unsubscribe link
+                article.getCategory()  // category for unsubscribe link
         );
     }
 
 
 
-        private Mono<Void> notifySubscribers(Article article) {
-        return subscriptionRepository.findByCategory(article.getCategory().getCategoryName())  // Returns Flux<Subscription>
+
+    private Mono<Void> notifySubscribers(Article article) {
+        return subscriptionRepository.findByCategory(article.getCategory().getCategoryName())
                 .flatMap(subscription -> {
-                    String emailBody = buildEmailContent(article);
-                    return emailSenderService.sendEmail(subscription.getUserEmail(),
+                    // Pass the subscriber's email so the unsubscribe link is properly built.
+                    String emailBody = buildEmailContent(article, subscription.getUserEmail());
+                    return emailSenderService.sendEmail(
+                                    subscription.getUserEmail(),
                                     "New Article in " + article.getCategory(),
                                     emailBody)
                             .doOnSuccess(result ->
@@ -205,6 +215,7 @@ public class ArticleServiceImpl implements ArticleService {
                 })
                 .then();
     }
+
 
 
     @Override

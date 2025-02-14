@@ -31,6 +31,7 @@ const Login: React.FC = () => {
 
       const response = await fetch(
         "https://dolphin-app-sxvxi.ondigitalocean.app/api/userInfo",
+        // "http://localhost:8080/api/userInfo",
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -113,6 +113,7 @@ const ArticleForm = () => {
       const accessToken = localStorage.getItem("accessToken");
       const response = await axios.post(
         "https://dolphin-app-sxvxi.ondigitalocean.app/api/v1/articles/acceptDraft",
+        // "http://localhost:8080/api/v1/articles/acceptDraft",
         formData,
         {
           headers: {

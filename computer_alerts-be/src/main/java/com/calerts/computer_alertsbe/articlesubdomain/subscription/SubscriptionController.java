@@ -3,6 +3,7 @@ package com.calerts.computer_alertsbe.articlesubdomain.subscription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -27,6 +28,17 @@ public class SubscriptionController {
         }
     }
 
+
+    @GetMapping("/unsubscribe")
+    public Mono<ResponseEntity<String>> unsubscribe(@RequestParam String email,
+                                                    @RequestParam String category) {
+        try{
+            subscriptionService.unsubscribe(email, category);
+            return Mono.just(ResponseEntity.ok("You have unsubscribed from " + category + " successfully."));
+        } catch (Exception e) {
+            return Mono.just(ResponseEntity.badRequest().body(e.getMessage()));
+        }
+    }
 
     @GetMapping("/categories")
     public ResponseEntity<List<String>> getSubscribedCategories(@RequestParam String email) {

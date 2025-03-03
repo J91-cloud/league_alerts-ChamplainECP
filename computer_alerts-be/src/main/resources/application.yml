@@ -1,10 +1,9 @@
 # Common Configuration
 frontend:
   #  url: http://localhost:3000
-  url: https://league-alerts.web.app
-
+  url: {your frontend domain} # place here
 cloudinary:
-  url: ${CLOUDINARY_URL}
+  url: {Cloudinary URL provided}
 
 backend:
   url: http://localhost:8080
@@ -18,7 +17,7 @@ spring:
       #      host: mongo
       #      port: 27017
       uri: ${MONGO_CONNECTION_STRING}
-      database: computeralerts
+      database: {Database name}
       auto-index-creation: true
 
 server:
@@ -33,10 +32,10 @@ logging:
     com.calerts: DEBUG
 
 auth0:
-  clientId: dErtDK4v3hzp0FoM26aX9qGDayGobMIs
-  clientSecret: "hzlT0vFjt6RvkYIT9Y5mZcB6Vl_vAA3McVxf_2yMsmI4E074pQqbGn3G4ZpTxMXI"
-  domain: dev-im24qkb6l7t2yhha.ca.auth0.com
-  audience: https://dev-im24qkb6l7t2yhha.ca.auth0.com/api/v2/
+  clientId: {Add Auth0 ClientId}
+  clientSecret: {Add Auth0 Secret}
+  domain: {Add Auth0 Domain}
+  audience: {Add Auth0 Audience}
 
 ---
 # Test Configuration
@@ -51,7 +50,7 @@ spring:
       password: password
       host: localhost
       port: 0
-      database: computeralerts
+      database: {enter database name}
       authentication-database: admin
       auto-index-creation: true
 

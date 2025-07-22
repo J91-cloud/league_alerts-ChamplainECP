@@ -1,16 +1,11 @@
-# league_alerts-ChamplainECP
-Project for all 3rd Year Students. We have to get a external client and build them their very first web application. This consists of TypeScript and a Java Spring Boot backend connected to a MongoDB.
+# League Alerts Web Application
+Project for all 3rd Year Students. In this project we all had to find an external client that was willing for us to try and implement its own unique web application. My friends and i chose league alerts, a sports media company that is very popular on socila media platforms such as X and instagram. 
 
-## Repo Instructions
-This repo has been built with a docker compose with no front-end. To build the front-end run:
-```
-npm start
-```
-This is their is a hot reload when running when editing CSS styles for the front-end. 
-The team and I also utilized Cloudinary to upload images for our articles. A cloudinary URI is needed and must be added in the following files:
-- application.yml
-- docker-compose-no-FE.yml
+<p align="center">
+    <img src="https://pbs.twimg.com/profile_images/1537555715849592833/8ENp2FSI_400x400.jpg" style="height: 220px;"/>
+</p>
 
-The team and I utilized mongoDB. A URI is also needed and must be provided in the following files:
-- application.yml
-- docker-compose-no-FE.yml
+## Codebase
+Inside this project we used `Spring Boot Java` for the backend and `gradle` for dependency management. For the frontend we used `React JS`.  The database we chose to use was `mongodb`. This project was without a doubt the most challenging  for my team and I. I never would have though being that young we would accomplished what we had acheived. 
+
+
